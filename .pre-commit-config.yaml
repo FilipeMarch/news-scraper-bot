@@ -1,0 +1,19 @@
+repos:
+  - repo: local
+    hooks:
+      - id: pre-commit-poetry-export-requirements
+        name: generate-requirements-txt
+        description: "Generate requirements.txt based on poetry.lock"
+        entry: poetry
+        args:
+          [
+            export,
+            --with,
+            dev,
+            -f,
+            requirements.txt,
+            --output,
+            requirements.txt,
+          ]
+        language: system
+        pass_filenames: false
