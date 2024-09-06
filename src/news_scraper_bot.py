@@ -1,4 +1,4 @@
-# import logging
+import logging
 import os
 import re
 from datetime import datetime
@@ -50,10 +50,10 @@ class WebScraper:
 
         This method navigates to the base URL and waits for the page to load.
         """
-        log(f'Opening website: {self.base_url}')
+        log.info(f'Opening website: {self.base_url}')
         self.browser.open_available_browser(self.base_url)
         self.browser.wait_until_element_is_visible('css:body', timeout=3)
-        log('Website opened successfully')
+        log.info('Website opened successfully')
 
     def search_news(self, search_phrase: str) -> None:
         """
@@ -64,30 +64,30 @@ class WebScraper:
         Args:
             search_phrase (str): The phrase to search for in news articles.
         """
-        log('Waiting for search button to be visible')
+        log.info('Waiting for search button to be visible')
         search_button_locator = 'css:.header-toggle.search-toggle'
         self.browser.wait_until_element_is_visible(
             search_button_locator, timeout=7
         )
 
-        log('Clicking on the search button')
+        log.info('Clicking on the search button')
         self.browser.click_element(search_button_locator)
 
-        log('Waiting for search input to be visible')
+        log.info('Waiting for search input to be visible')
         self.browser.wait_until_element_is_visible('name:q', timeout=7)
 
-        log('Clicking on the search input field')
+        log.info('Clicking on the search input field')
         search_input = self.browser.find_element('name:q')
         search_input.click()
 
-        log('Entering the search phrase')
+        log.info('Entering the search phrase')
         search_input.send_keys(search_phrase)
 
-        log('Clicking on the search button to start the search')
+        log.info('Clicking on the search button to start the search')
         search_submit_button_locator = 'css:.btn-search'
         self.browser.click_element(search_submit_button_locator)
 
-        log('Waiting for search results to be visible')
+        log.info('Waiting for search results to be visible')
         articles_list_locator = 'css:.list-articles'
         self.browser.wait_until_element_is_visible(
             articles_list_locator, timeout=7
@@ -110,7 +110,7 @@ class WebScraper:
             Optional[List[Dict]]: A list of dictionaries containing article
             information, or None if no articles are found.
         """
-        log('Extracting article information')
+        log.info('Extracting article information')
         titles = self.browser.find_elements(
             'xpath:.//h3[@class="hed-article-title"]'
         )
@@ -121,7 +121,7 @@ class WebScraper:
         images = self.browser.find_elements('xpath:.//li//img')
 
         if len(titles) == 0:
-            log('No articles found for the given search phrase')
+            log.info('No articles found for the given search phrase')
             return None
 
         articles_data = []
@@ -153,7 +153,7 @@ class WebScraper:
             else:
                 break
 
-        log(
+        log.info(
             f'Found {len(articles_data)} articles '
             'containing search phrase in the date range'
         )
@@ -258,7 +258,7 @@ class FileOperations:
             data (List[Dict]): A list of dictionaries containing article info.
         """
         file_path = os.path.join(self.output_dir, 'news_articles.xlsx')
-        log(f'Saving results to {file_path}')
+        log.info(f'Saving results to {file_path}')
 
         self.excel.create_workbook(file_path)
         self.excel.append_rows_to_worksheet([
@@ -287,7 +287,7 @@ class FileOperations:
                 header=False,
             )
         self.excel.save_workbook()
-        log('Results saved successfully')
+        log.info('Results saved successfully')
 
     async def download_images(self, article_data: List[Dict]) -> None:
         """
@@ -323,7 +323,7 @@ class FileOperations:
                 await trio.to_thread.run_sync(
                     self._save_image, filepath, response.content
                 )
-                log(f'Image downloaded: {filename}')
+                log.info(f'Image downloaded: {filename}')
             else:
                 logger.warning(f'Failed to download image: {image_url}')
         except Exception as e:
@@ -375,7 +375,7 @@ class NewsScraperBot:
             self.news_category = news_category
             self.num_months = num_months
 
-        log(
+        log.info(
             f'Search phrase: {self.search_phrase}, '
             f'Category: {self.news_category}, '
             f'Months: {self.num_months}'
@@ -407,7 +407,7 @@ class NewsScraperBot:
         This method extracts article information, downloads images,
         and saves the data to an Excel file.
         """
-        log('Scraping news...')
+        log.info('Scraping news...')
         article_data = self.web_scraper.extract_articles_info(
             self.search_phrase, self.num_months
         )
@@ -415,7 +415,7 @@ class NewsScraperBot:
             trio.run(self.file_operations.download_images, article_data)
             self.file_operations.save_to_excel(article_data)
         else:
-            log('No articles found within the date range')
+            log.info('No articles found within the date range')
 
 
 def main():
