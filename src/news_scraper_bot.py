@@ -11,6 +11,17 @@ from robocorp import workitems
 from RPA.Browser.Selenium import Selenium
 from RPA.Excel.Files import Files
 
+log_dir = 'output'
+
+os.makedirs(log_dir, exist_ok=True)
+
+log_file = os.path.join(log_dir, 'scraper_log.txt')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
+)
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
