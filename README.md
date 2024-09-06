@@ -10,7 +10,6 @@
 </p>
 
 &nbsp;
-`<a id="-about-the-project"></a>`
 
 ## 💻 About the project
 
@@ -39,7 +38,7 @@ Developed with a focus on modularity and extensibility, the News Scraper Bot fol
   <img alt="Robocorp icon" height=40 src="https://robocorp.com/wp-content/uploads/2024/05/lockup-black.png">
 <p>
 
-`<a id="-technologies"></a>`
+&nbsp;
 
 ## 🛠 Technologies
 
@@ -52,7 +51,6 @@ The following technologies were used while building this project:
 
 &nbsp;
 
-`<a id="-folder-structure"></a>`
 
 ## 📁 Folder Structure
 
@@ -72,7 +70,7 @@ The project follows a modular structure with clear separation of concerns:
 * **robot.yaml** : Defines the Robocorp robot process, including tasks, environment configuration, and steps to execute the bot.
 * **.pre-commit-config.yaml** : Configuration for `pre-commit` hooks to ensure code quality and enforce consistent coding standards before committing.Envio de Emails
 
-`<a id="-scripts"></a>`
+&nbsp;
 
 ## 📜 Scripts
 
@@ -84,7 +82,7 @@ We use `taskipy` to lint, format and test the project.
 - **task pre_test**: A pre-test step that ensures the codebase is properly linted by running `task lint` before executing the test suite.
 - **task post_test**: After the tests run, this task generates an HTML coverage report, providing insights into the test coverage of the source code.
 
-`<a id="-tests"></a>`
+&nbsp;
 
 ## 🧪 Tests
 
@@ -92,7 +90,7 @@ The project includes a basic test suite to ensure reliability and correctness. T
 
 ⚠️ Current coverage is not 100%
 
-`<a id="-contributing"></a>`
+&nbsp;
 
 ## 👐 Contributing
 
@@ -100,13 +98,13 @@ This project is open source under the MIT license, and contributions are very we
 
 If you find any issues or have an improvement idea, feel free to open an [issue](https://github.com/FilipeMarch/news-scraper-bot/issues). Pull requests are also very welcome!
 
-`<a id="-author"></a>`
+&nbsp;
 
 ## 🦸 Author
 
 Hello, I'm Filipe Marchesini, Full Stack developer. I love math, programming and truth.
 
-`<a id="-licence"></a>`
+&nbsp;
 
 ## 📝 Licence
 
