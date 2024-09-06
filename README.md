@@ -65,8 +65,8 @@ The project follows a modular structure with clear separation of concerns:
 
 * **src/** : Contains the main source code
 * **tests/** : Houses the test files for the project
-* **.output/** : Contains the output files such as the excel, images downloaded.
-* **.test_output/** : Stores output from test runs.
+* **output/** : Contains the output files such as the excel, images downloaded.
+* **test_output/** : Stores output from test runs.
 * **.vscode/** : Project-specific settings for VS Code
 * **src/news_scraper_bot.py** : Core functionality of the news scraper
 * **src/main.py** : Runs the News Scraper Bot from the command line with customizable arguments for search phrase, news category, and date range.
