@@ -84,6 +84,8 @@ We use `taskipy` to lint, format and test the project.
 - **task pre_test**: A pre-test step that ensures the codebase is properly linted by running `task lint` before executing the test suite.
 - **task post_test**: After the tests run, this task generates an HTML coverage report, providing insights into the test coverage of the source code.
 
+You can run without using a robot using command line: `python src/main.py --search_phrase "python" --news_category "programming" --num_months 8`
+
 &nbsp;
 
 ## 🧪 Tests
