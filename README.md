@@ -53,7 +53,7 @@ The following technologies were used while building this project:
     <a href= "https://robotframework.org/" target="_blank" rel="noopener noreferrer"><img alt="Robot Frameworkbadge" src="https://img.shields.io/badge/Robot%20Framework-000000?style=for-the-badge&logo=robot-framework&logoColor=white"></a>
     <a href= "https://docs.astral.sh/ruff/" target="_blank" rel="noopener noreferrer"><img alt="Ruff badge" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"></a>
     <a href= "https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer"><img alt="VS Code badge" src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"></a>
-
+    <a href= "https://pre-commit.com/" target="_blank" rel="noopener noreferrer"><img alt="Pre-Commit badge" src="https://img.shields.io/badge/precommit-FAB040.svg?style=for-the-badge&logo=pre-commit&logoColor=black"></a> 
 </p>
 
 &nbsp;
