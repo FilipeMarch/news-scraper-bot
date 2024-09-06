@@ -38,10 +38,6 @@ Developed with a focus on modularity and extensibility, the News Scraper Bot fol
   <a href="https://github.com/FilipeMarch/news-scraper-bot"><img src="https://img.shields.io/github/repo-size/FilipeMarch/news-scraper-bot" alt="repository size" /></a>
 <p>
 
-<p align="center">
-  <img alt="Robocorp icon" height=40 src="https://robocorp.com/wp-content/uploads/2024/05/lockup-black.png">
-<p>
-
 &nbsp;
 
 ## 🛠 Technologies
@@ -51,6 +47,13 @@ The following technologies were used while building this project:
 &nbsp;
 
 <p align="center">
+    <a href= "https://www.python.org//" target="_blank" rel="noopener noreferrer"><img alt="Python badge" src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"></a>
+    <a href= "https://python-poetry.org/" target="_blank" rel="noopener noreferrer"><img alt="Poetry badge" src="https://img.shields.io/endpoint?url=https://website-9cvbcandi-python-poetry.vercel.app/badge/v0.json"></a> 
+    <a href= "https://pytest.org/" target="_blank" rel="noopener noreferrer"><img alt="Pytest badge" src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white"></a> 
+    <a href= "https://robotframework.org/" target="_blank" rel="noopener noreferrer"><img alt="Robot Frameworkbadge" src="https://img.shields.io/badge/Robot%20Framework-000000?style=for-the-badge&logo=robot-framework&logoColor=white"></a>
+    <a href= "https://docs.astral.sh/ruff/" target="_blank" rel="noopener noreferrer"><img alt="Ruff badge" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"></a>
+    <a href= "https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer"><img alt="VS Code badge" src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"></a>
+
 </p>
 
 &nbsp;
