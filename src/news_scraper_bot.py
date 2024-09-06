@@ -7,6 +7,7 @@ from typing import Dict, List, Optional
 import httpx
 import trio
 from dateutil.relativedelta import relativedelta
+from robocorp import workitems
 from RPA.Browser.Selenium import Selenium
 from RPA.Excel.Files import Files
 
@@ -338,7 +339,10 @@ class NewsScraperBot:
     """
 
     def __init__(
-        self, search_phrase: str, news_category: str, num_months: int
+        self,
+        search_phrase: Optional[str] = None,
+        news_category: Optional[str] = None,
+        num_months: Optional[int] = None,
     ):
         """
         Initialize the NewsScraperBot with search parameters.
@@ -348,9 +352,23 @@ class NewsScraperBot:
             news_category (str): The category of news to focus on.
             num_months (int): The number of months to look back for articles.
         """
-        self.search_phrase = search_phrase
-        self.news_category = news_category
-        self.num_months = num_months
+        if search_phrase is None:
+            # Robot Framework Work Item
+            work_item = workitems.inputs.current
+            self.search_phrase = getattr(work_item, 'search_phrase', '')
+            self.news_category = getattr(work_item, 'news_category', '')
+            self.num_months = getattr(work_item, 'num_months', 1)
+        else:
+            # CLI Arguments
+            self.search_phrase = search_phrase
+            self.news_category = news_category
+            self.num_months = num_months
+
+        logger.info(
+            f'Search phrase: {self.search_phrase}, '
+            f'Category: {self.news_category}, '
+            f'Months: {self.num_months}'
+        )
         self.base_url = 'https://source.opennews.org/'
         self.output_dir = os.path.join(os.getcwd(), 'output')
 
@@ -387,3 +405,12 @@ class NewsScraperBot:
             self.file_operations.save_to_excel(article_data)
         else:
             logger.info('No articles found within the date range')
+
+
+def main():
+    bot = NewsScraperBot()
+    bot.run()
+
+
+if __name__ == '__main__':
+    main()
