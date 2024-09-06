@@ -366,6 +366,7 @@ class NewsScraperBot:
         if search_phrase is None:
             # Robot Framework Work Item
             work_item = workitems.inputs.current
+            log.critical(f'Work item content: {work_item}')
             self.search_phrase = getattr(work_item, 'search_phrase', '')
             self.news_category = getattr(work_item, 'news_category', '')
             self.num_months = getattr(work_item, 'num_months', 1)
