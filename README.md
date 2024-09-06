@@ -13,7 +13,7 @@
 
 ## 💻 About the project
 
-https://github.com/user-attachments/assets/edd5d95d-42b7-445d-a107-c16d67682404
+![news-scraper-bot-optimized](https://github.com/user-attachments/assets/f5f890bc-0e13-419a-bc0c-225204119455)
 
 ![image](https://github.com/user-attachments/assets/b79fafeb-30c5-4dd5-a044-03dff0f83c1a)
 
