@@ -373,9 +373,9 @@ class NewsScraperBot:
             # Robot Framework Work Item
             work_item = workitems.inputs.current
             log.critical(f'Work item content: {work_item}')
-            self.search_phrase = getattr(work_item, 'search_phrase', '')
-            self.news_category = getattr(work_item, 'news_category', '')
-            self.num_months = getattr(work_item, 'num_months', 1)
+            self.search_phrase = work_item.payload.get('search_phrase', '')
+            self.news_category = work_item.payload.get('news_category', '')
+            self.num_months = work_item.payload.get('num_months', '')
         else:
             # CLI Arguments
             log.critical('Executing with CLI arguments')
