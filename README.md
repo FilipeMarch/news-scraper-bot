@@ -13,6 +13,8 @@
 
 ## 💻 About the project
 
+![image](https://github.com/user-attachments/assets/b79fafeb-30c5-4dd5-a044-03dff0f83c1a)
+
 The **News Scraper Bot** is an educational tool designed to demonstrate the automation of gathering, analyzing, and reporting news articles. This project aims to provide a practical example for those who are learning about web scraping using only Selenium.
 
 Key features of the News Scraper Bot include:
