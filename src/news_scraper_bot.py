@@ -1,4 +1,3 @@
-import logging
 import os
 import re
 from datetime import datetime
@@ -8,6 +7,7 @@ import httpx
 import trio
 from dateutil.relativedelta import relativedelta
 from robocorp import log, workitems
+from robocorp.log import FilterLogLevel
 from RPA.Browser.Selenium import Selenium
 from RPA.Excel.Files import Files
 
@@ -16,13 +16,14 @@ log_dir = 'output'
 os.makedirs(log_dir, exist_ok=True)
 
 log.setup_log(
-    level=logging.INFO,
-    filename=os.path.join(log_dir, 'scraper_log.txt'),
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(os.path.join(log_dir, 'scraper_log.txt')),
-        logging.StreamHandler(),
-    ],
+    log_level=FilterLogLevel.INFO,
+    output_log_level=FilterLogLevel.INFO,
+    output_stream={
+        FilterLogLevel.DEBUG: 'stdout',
+        FilterLogLevel.INFO: 'stdout',
+        FilterLogLevel.WARN: 'stdout',
+        FilterLogLevel.CRITICAL: 'stdout',
+    },
 )
 
 
