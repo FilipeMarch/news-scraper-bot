@@ -363,6 +363,12 @@ class NewsScraperBot:
             news_category (str): The category of news to focus on.
             num_months (int): The number of months to look back for articles.
         """
+        log.critical(
+            f'Initializing NewsScraperBot with search phrase: '
+            f'{search_phrase}, category: {news_category}, '
+            f'num_months: {num_months}'
+        )
+
         if search_phrase is None:
             # Robot Framework Work Item
             work_item = workitems.inputs.current
@@ -372,6 +378,7 @@ class NewsScraperBot:
             self.num_months = getattr(work_item, 'num_months', 1)
         else:
             # CLI Arguments
+            log.critical('Executing with CLI arguments')
             self.search_phrase = search_phrase
             self.news_category = news_category
             self.num_months = num_months
