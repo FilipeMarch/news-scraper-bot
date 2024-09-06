@@ -15,15 +15,15 @@ log_dir = 'output'
 
 os.makedirs(log_dir, exist_ok=True)
 
-# log_file = os.path.join(log_dir, 'scraper_log.txt')
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-#     handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
-# )
-
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.INFO)
+log.setup_log(
+    level=logging.INFO,
+    filename=os.path.join(log_dir, 'scraper_log.txt'),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(os.path.join(log_dir, 'scraper_log.txt')),
+        logging.StreamHandler(),
+    ],
+)
 
 
 class WebScraper:
@@ -50,10 +50,10 @@ class WebScraper:
 
         This method navigates to the base URL and waits for the page to load.
         """
-        log.critical(f'Opening website: {self.base_url}')
+        log.info(f'Opening website: {self.base_url}')
         self.browser.open_available_browser(self.base_url)
         self.browser.wait_until_element_is_visible('css:body', timeout=3)
-        log.critical('Website opened successfully')
+        log.info('Website opened successfully')
 
     def search_news(self, search_phrase: str) -> None:
         """
@@ -64,30 +64,30 @@ class WebScraper:
         Args:
             search_phrase (str): The phrase to search for in news articles.
         """
-        log.critical('Waiting for search button to be visible')
+        log.info('Waiting for search button to be visible')
         search_button_locator = 'css:.header-toggle.search-toggle'
         self.browser.wait_until_element_is_visible(
             search_button_locator, timeout=7
         )
 
-        log.critical('Clicking on the search button')
+        log.info('Clicking on the search button')
         self.browser.click_element(search_button_locator)
 
-        log.critical('Waiting for search input to be visible')
+        log.info('Waiting for search input to be visible')
         self.browser.wait_until_element_is_visible('name:q', timeout=7)
 
-        log.critical('Clicking on the search input field')
+        log.info('Clicking on the search input field')
         search_input = self.browser.find_element('name:q')
         search_input.click()
 
-        log.critical('Entering the search phrase')
+        log.info('Entering the search phrase')
         search_input.send_keys(search_phrase)
 
-        log.critical('Clicking on the search button to start the search')
+        log.info('Clicking on the search button to start the search')
         search_submit_button_locator = 'css:.btn-search'
         self.browser.click_element(search_submit_button_locator)
 
-        log.critical('Waiting for search results to be visible')
+        log.info('Waiting for search results to be visible')
         articles_list_locator = 'css:.list-articles'
         self.browser.wait_until_element_is_visible(
             articles_list_locator, timeout=7
@@ -110,7 +110,7 @@ class WebScraper:
             Optional[List[Dict]]: A list of dictionaries containing article
             information, or None if no articles are found.
         """
-        log.critical('Extracting article information')
+        log.info('Extracting article information')
         titles = self.browser.find_elements(
             'xpath:.//h3[@class="hed-article-title"]'
         )
@@ -121,7 +121,7 @@ class WebScraper:
         images = self.browser.find_elements('xpath:.//li//img')
 
         if len(titles) == 0:
-            log.critical('No articles found for the given search phrase')
+            log.info('No articles found for the given search phrase')
             return None
 
         articles_data = []
@@ -153,7 +153,7 @@ class WebScraper:
             else:
                 break
 
-        log.critical(
+        log.info(
             f'Found {len(articles_data)} articles '
             'containing search phrase in the date range'
         )
@@ -258,7 +258,7 @@ class FileOperations:
             data (List[Dict]): A list of dictionaries containing article info.
         """
         file_path = os.path.join(self.output_dir, 'news_articles.xlsx')
-        log.critical(f'Saving results to {file_path}')
+        log.info(f'Saving results to {file_path}')
 
         self.excel.create_workbook(file_path)
         self.excel.append_rows_to_worksheet([
@@ -287,7 +287,7 @@ class FileOperations:
                 header=False,
             )
         self.excel.save_workbook()
-        log.critical('Results saved successfully')
+        log.info('Results saved successfully')
 
     async def download_images(self, article_data: List[Dict]) -> None:
         """
@@ -323,11 +323,11 @@ class FileOperations:
                 await trio.to_thread.run_sync(
                     self._save_image, filepath, response.content
                 )
-                log.critical(f'Image downloaded: {filename}')
+                log.info(f'Image downloaded: {filename}')
             else:
-                logger.warning(f'Failed to download image: {image_url}')
+                log.warn(f'Failed to download image: {image_url}')
         except Exception as e:
-            logger.error(f'Error downloading image {image_url}: {str(e)}')
+            log.exception(f'Error downloading image {image_url}: {str(e)}')
 
     @staticmethod
     def _save_image(filepath: str, content: bytes) -> None:
@@ -363,7 +363,7 @@ class NewsScraperBot:
             news_category (str): The category of news to focus on.
             num_months (int): The number of months to look back for articles.
         """
-        log.critical(
+        log.info(
             f'Initializing NewsScraperBot with search phrase: '
             f'{search_phrase}, category: {news_category}, '
             f'num_months: {num_months}'
@@ -372,18 +372,18 @@ class NewsScraperBot:
         if search_phrase is None:
             # Robot Framework Work Item
             work_item = workitems.inputs.current
-            log.critical(f'Work item content: {work_item}')
+            log.info(f'Work item content: {work_item}')
             self.search_phrase = work_item.payload.get('search_phrase', '')
             self.news_category = work_item.payload.get('news_category', '')
             self.num_months = work_item.payload.get('num_months', '')
         else:
             # CLI Arguments
-            log.critical('Executing with CLI arguments')
+            log.info('Executing with CLI arguments')
             self.search_phrase = search_phrase
             self.news_category = news_category
             self.num_months = num_months
 
-        log.critical(
+        log.info(
             f'Search phrase: {self.search_phrase}, '
             f'Category: {self.news_category}, '
             f'Months: {self.num_months}'
@@ -415,7 +415,7 @@ class NewsScraperBot:
         This method extracts article information, downloads images,
         and saves the data to an Excel file.
         """
-        log.critical('Scraping news...')
+        log.info('Scraping news...')
         article_data = self.web_scraper.extract_articles_info(
             self.search_phrase, self.num_months
         )
@@ -423,7 +423,7 @@ class NewsScraperBot:
             trio.run(self.file_operations.download_images, article_data)
             self.file_operations.save_to_excel(article_data)
         else:
-            log.critical('No articles found within the date range')
+            log.info('No articles found within the date range')
 
 
 def main():
