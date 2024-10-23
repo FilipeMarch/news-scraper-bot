@@ -27,15 +27,9 @@ pytest-trio = "^0.8.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.isort]
-profile = "black"
-line_length = 100
-skip = [".venv"]
-skip_glob = [".venv/**"]
-
 [tool.taskipy.tasks]
-lint = 'ruff check . && ruff check . --diff'
-format = 'ruff check . --fix && ruff format .'
+lint = 'ruff check .; ruff check . --diff'
+format = 'ruff check . --fix; ruff format .'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=src -vv'
 post_test = 'coverage html'
